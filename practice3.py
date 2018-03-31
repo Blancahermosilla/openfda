@@ -8,7 +8,7 @@ IP = "localhost"  # local machine
 PORT = 8002
 
 
-# HTTPRequestHandler class
+##HTTPRequestHandler class
 class server_blanca(http.server.BaseHTTPRequestHandler):
     # GET
     def do_GET(self):
