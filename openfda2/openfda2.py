@@ -12,7 +12,7 @@ conn.close()
 
 repos = json.loads(repos_raw)
 
-
+##
 for i in range(len(repos['results'])):
     if repos['results'][i]['openfda'] == {}:
         continue

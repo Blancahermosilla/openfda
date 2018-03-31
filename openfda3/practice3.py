@@ -3,7 +3,7 @@ import socketserver
 import http.client
 import json
 
-# -- IP and the port of the server
+##-- IP and the port of the server
 IP = "localhost"  # local machine
 PORT = 8002
 
