@@ -28,7 +28,7 @@ class server_blanca(http.server.BaseHTTPRequestHandler):
 
         elif 'search' in self.path:
             #self.wfile.write(bytes(self.path, "utf8"))
-            #print(self.path)
+            print(self.path)
             list1 = self.path.strip('search?').split('&')
             drug =list1[0].split('=')[1]
             limit = list1[1].split('=')[1]
@@ -45,12 +45,7 @@ class server_blanca(http.server.BaseHTTPRequestHandler):
             conn.close()
 
             drugs = json.loads(repos_raw)
-
-            message = ''
-            for i in range(len(drugs['results'])):
-                message += "<ol>" + drugs["results"][i]["id"] + "</ol>"
-
-            self.wfile.write(bytes(message, "utf8"))
+            self.wfile.write(bytes(str(drugs), "utf8"))
 
 
         return
