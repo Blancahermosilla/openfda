@@ -5,7 +5,7 @@ import json
 
 ##-- IP and the port of the server
 IP = "localhost"  # local machine
-PORT = 8002
+PORT = 8000
 
 
 ##HTTPRequestHandler class
