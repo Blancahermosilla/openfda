@@ -98,25 +98,31 @@ class HTTPRequestHandler(http.server.BaseHTTPRequestHandler):
                 http_res = f.read()
 
         elif 'search' in self.path:
-            # print(self.path)
+
             if 'searchDrug' in self.path:
                 params = self.path.strip('searchDrug?').split('&')
                 req = 'active_ingredient='
-
 
             elif 'searchCompany' in self.path:
                 params = self.path.strip('searchCompany?').split('&')
                 req = 'manufacturer_name='
 
             p1 = params[0].split('=')[1]
-            if params[1].split('=')[1]=='':
+            if params[1].split('=')[1] == '':
                 limit
             else:
-                limit= params[1].split('=')[1]
+                limit = params[1].split('=')[1]
 
-            drugs = client.send_query(req, p1, limit)
-            info = parser.parse_drugs(drugs)
-            http_res = html.html_list(info)
+            try:
+                drugs = client.send_query(req, p1, limit)
+                info = parser.parse_drugs(drugs)
+                http_res = html.html_list(info)
+
+            except KeyError:
+                code = 404
+                with open('error.html', 'r') as f:
+                    http_res = f.read()
+
 
         elif 'list' in self.path:
             params = self.path.strip('?')
