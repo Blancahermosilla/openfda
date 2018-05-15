@@ -72,7 +72,7 @@ class OpenFDAHTML():
     def html_list(self, list_):
         html = '<ul>'
         for i in list_:
-            html += '<li>' + i + '</ul>'
+            html += '<li>' + i + '</li>'
         html += '</ul>'
 
         return html
@@ -87,7 +87,7 @@ class HTTPRequestHandler(http.server.BaseHTTPRequestHandler):
 
         #iniciar variables
         code = 200
-        limit = str(10) #must be string
+        limit = '10'
         req = ''
         p1 = ''
         info = ''
@@ -100,18 +100,23 @@ class HTTPRequestHandler(http.server.BaseHTTPRequestHandler):
         elif 'search' in self.path:
 
             if 'searchDrug' in self.path:
-                params = self.path.strip('searchDrug?').split('&')
+                #  Se supone parametro 1 DRUG
+                #            parametro 2 LIMIT
+                params =self.path.split('&')
                 req = 'active_ingredient='
 
             elif 'searchCompany' in self.path:
-                params = self.path.strip('searchCompany?').split('&')
+                params = self.path.split('&')
                 req = 'manufacturer_name='
 
             p1 = params[0].split('=')[1]
-            if params[1].split('=')[1] == '':
-                limit
-            else:
+            if 'limit' in self.path:
                 limit = params[1].split('=')[1]
+                if params[1].split('=')[1]== '':
+                    limit= '10'
+
+            else:
+                limit
 
             try:
                 drugs = client.send_query(req, p1, limit)
